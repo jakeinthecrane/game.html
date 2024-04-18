@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- This lets the browser know character encoding was used in the html doc -->
+<meta charset="UTF-8">
+<title>Craps Game</title>
+<style>
+
+  body {
+    background-image: url("casino\ 2.jpg"); 
+    background-size: cover;
+    background-position: center;
+    display: flex; /*this allows for a simpler approach to centerlining the text*/
+    justify-content: center; /*this allows for the alignment on the main axis(vertical)*/
+    align-items: center; /*allows for alignment of all items on the cross axis (horizontal*/
+    height: 100vh; /* height of the contents to be center vertical height */
+    margin: 0; /* Remove default margin */
+  }
+  .container {
+    text-align: center; /*To Center text inside the container */
+  }
+</style>
+
+<script>/*user defined function to address the dice and java function to generate a return of a generative # 0-6 per die*/
+function randomCrapsRoll() {
+    return Math.floor(Math.random() * 6) + 1;
+}
+/*serves as the main logic for the game. Also, calls on randomCrapsRoll to generate random numbers*/
+function checkDice() {
+    let die1 = randomCrapsRoll();  /*die 1 assigned */
+    let die2 = randomCrapsRoll();  /*die 2 assigned */
+    let sum = die1 + die2; /*we add the 2 here*/
+    
+    document.getElementById('die1').textContent = die1; /*allows me to to access and manupulate the elements in the document*/
+    document.getElementById('die2').textContent = die2;  /*allows me to to access and manupulate the elements in the document*/
+    document.getElementById('sum').textContent = "Sum: " + sum;  /*allows me to to access and manupulate the elements in the document*/
+    /*here we explain that if the sum were to be equal to 7 OR 11 then we receive the message "CRAPS - you lose"*/
+    if (sum === 7 || sum === 11) {
+        document.getElementById('result').textContent = "CRAPS - you lose!";
+    } 
+    /*if we dont get the value from above this is next. If die1 is exactly equal to die2 AND (the second half does math to verify that die1 is an even number. If both numbers are even "you win" )*/
+    else if (die1 === die2 && die1 % 2 === 0) {
+        document.getElementById('result').textContent = "You won!";
+    /*if anything else other than the last 2 conditional statements then "You pushed!"*/
+    } else {
+        document.getElementById('result').textContent = "You pushed!";
+    }
+}
+</script>
+
+</head>
+<body>
+<!--this container will place eveything below it in center of the page as directed in the head of the page-->
+<div class="container">
+    <!--header 1 and the only-->
+    <h1>Play Craps</h1>
+    <!--interactive button-->
+    <button onclick="checkDice()">Roll Dice</button>
+    <!--Die 1 in a paragraph with a span element to isolate and elclose the text-->
+    <p>Die 1: <span id="die1">-</span></p>
+    <!--Die 2 in a paragraph with a span element to isolate and elclose the text-->
+    <p>Die 2: <span id="die2">-</span></p>
+    <!--the sum of the results using a strong element for effect and span to isolate-->
+    <p><strong><span id="sum"></span></strong></p>
+    <!--results with a strong element for effect-->
+    <p><strong id="result"></strong></p>
+</div>
+</body>
+</html>
